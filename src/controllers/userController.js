@@ -7,6 +7,11 @@ module.exports = {
         res.render('user/user-register-form');
     },
     processRegister: (req, res) => {
+        let errors = validationResult(req);
+        if (!errors.isEmpty()){
+            res.render('user/user-register-form', {errors: errors.errors})
+        } 
+
         const newUser = {
             id: helper.generateNewId(),
             email: req.body.email,
@@ -16,6 +21,7 @@ module.exports = {
         const users = helper.getAllUsers();
         const saveUser = [...users, newUser];
 
+
         helper.writeUsers(saveUser);
 
         return res.redirect('/user/login');
@@ -24,7 +30,7 @@ module.exports = {
         res.render('user/user-login-form');
     },
     processLogin: (req, res) => {
-        // Do the magic
+       
         return res.send('Do the magic');
     },
     showProfile: (req, res) => {

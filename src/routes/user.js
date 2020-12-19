@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 
 //requerir a los middles
+const validador = require('../middlewares/validaciones');
 
 //configuracion de multer
 const storage = multer.diskStorage({
@@ -24,13 +25,13 @@ const userController = require('../controllers/userController');
 router.get('/register', userController.showRegister);
 
 // Procesa la vista de registro
-router.post('/register', upload.any(), userController.processRegister);
+router.post('/register', upload.any(), validador.registro, userController.processRegister);
 
 // Muestra la vista de login
 router.get('/login', userController.showLogin);
 
 // Procesa la vista de login
-router.post('/login', userController.processLogin);
+router.post('/login', validador.login, userController.processLogin);
 
 // Muestra el perfil del usuario
 router.get('/profile', userController.showProfile);
