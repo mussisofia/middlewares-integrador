@@ -14,9 +14,19 @@
 				<h2 class="products-title">Login</h2>
 			</div>
 			<div class="col-6"> 
+				
 				<form action="/user/login/" method="POST">
 					<div class="row product-detail">
 						<div class="col-12">
+							<% if (typeof errors != "undefined") { %>
+							
+								<% errors.forEach(error => { %>
+								 
+									<p><%= error.msg %> </p>
+			
+								<% }) %>
+				
+							<% } %>
 							<label for="email" class="form-label">Email:</label>
 							<input type="text" id="email" name="email" placeholder="Ej: example@example.com" class="form-input" value="">
 						</div>

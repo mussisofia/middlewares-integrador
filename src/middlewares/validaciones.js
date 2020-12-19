@@ -26,6 +26,7 @@ module.exports = {
             return req.files[0];
         }).withMessage('La imagen de perfil es obligatoria').bail()
         .custom((value, {req}) => {
+            return true;
               //formato debe ser > jpg, jpeg, png
         }).withMessage('El formato es invalido').bail()
 
@@ -37,7 +38,7 @@ module.exports = {
             users = helper.getAllUsers();
             userExiste = users.find(user => user.email == value);
             if(userExiste) {
-                return bcrypt.compareSync(req.body.password, userFound.password);
+                return bcrypt.compareSync(req.body.password, userExiste.password);
             } else {
                 return false;
             } 

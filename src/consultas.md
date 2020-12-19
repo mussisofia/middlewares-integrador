@@ -1,0 +1,2 @@
+- Persistencia de datos: Como envío el email ingresado a la vista si los datos fueron erroneos?
+- Metodo destroy para eliminar una cookie 

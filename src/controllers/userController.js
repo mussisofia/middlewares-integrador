@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator');
 const helper = require('../helpers/helpers');
 const bcrypt = require('bcryptjs');
+const session = require('express-session');
 
 module.exports = {
     showRegister: (req, res) => {
@@ -10,7 +11,7 @@ module.exports = {
         let errors = validationResult(req);
         if (!errors.isEmpty()){
             res.render('user/user-register-form', {errors: errors.errors})
-        } 
+        } else {
 
         const newUser = {
             id: helper.generateNewId(),
@@ -25,20 +26,33 @@ module.exports = {
         helper.writeUsers(saveUser);
 
         return res.redirect('/user/login');
+    }
     },
     showLogin: (req, res) => {
         res.render('user/user-login-form');
     },
     processLogin: (req, res) => {
-       
-        return res.send('Do the magic');
+        let errors = validationResult(req);
+        if (!errors.isEmpty()){
+            res.render('user/user-login-form', {errors: errors.errors})
+        } else {
+        
+        users = helper.getAllUsers();
+        user = users.find(user => user.email = req.body.email)
+        req.session.userLogueado = user;
+        
+        if (req.body.remember) {
+            res.cookie('user', user.id);
+        }
+        res.redirect('/user/profile')
+        } 
+            
     },
     showProfile: (req, res) => {
         res.render('user/profile');
     },
     logout: (req, res) => {
-        // Do the magic
-        return res.redirect('/');
+       //
     }
 
 }
