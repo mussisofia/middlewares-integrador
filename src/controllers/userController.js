@@ -1,22 +1,34 @@
+const { validationResult } = require('express-validator');
+const helper = require('../helpers/helpers');
+const bcrypt = require('bcryptjs');
+
 module.exports = {
     showRegister: (req, res) => {
-        // Do the magic
-        return res.send('Do the magic');
+        res.render('user/user-register-form');
     },
     processRegister: (req, res) => {
-        // Do the magic
-        return res.send('Do the magic');
+        const newUser = {
+            id: helper.generateNewId(),
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 10),
+            avatar: req.files[0].filename
+        }
+        const users = helper.getAllUsers();
+        const saveUser = [...users, newUser];
+
+        helper.writeUsers(saveUser);
+
+        return res.redirect('/user/login');
     },
     showLogin: (req, res) => {
-        // Do the magic
-        return res.send('Do the magic');
+        res.render('user/user-login-form');
     },
     processLogin: (req, res) => {
         // Do the magic
         return res.send('Do the magic');
     },
     showProfile: (req, res) => {
-        return res.render('user/profile');
+        res.render('user/profile');
     },
     logout: (req, res) => {
         // Do the magic
@@ -24,3 +36,4 @@ module.exports = {
     }
 
 }
+
