@@ -26,7 +26,11 @@
 				
 							<% } %>
 							<label for="email" class="form-label">Email: *</label>
+							<% if (typeof datos != "undefined") { %>
+								<input type="text" id="email" name="email" placeholder="Ej: example@example.com" class="form-input" value="<%= datos.email ? datos.email : '' %>">
+							<% } else { %>
 								<input type="text" id="email" name="email" placeholder="Ej: example@example.com" class="form-input" value="">
+							<% } %>
 						</div>
 						<div class="col-12 row">
 							<label for="image" class="form-label col-12">Avatar:</label>

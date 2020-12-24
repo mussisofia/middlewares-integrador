@@ -28,7 +28,11 @@
 				
 							<% } %>
 							<label for="email" class="form-label">Email:</label>
-							<input type="text" id="email" name="email" placeholder="Ej: example@example.com" class="form-input" value="">
+							<% if (typeof datos != "undefined") { %>
+								<input type="text" id="email" name="email" placeholder="Ej: example@example.com" class="form-input" value="<%= datos.email ? datos.email : '' %>">
+							<% } else { %>
+								<input type="text" id="email" name="email" placeholder="Ej: example@example.com" class="form-input" value="">
+							<% } %>
 						</div>
 						<div class="col-12">
 							<label for="price" class="form-label">Contraseña:</label>
